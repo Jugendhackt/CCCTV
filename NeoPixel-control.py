@@ -1,10 +1,10 @@
-# import board
-# import neopixel
+import board
+import neopixel
 import time
 from collections import deque
 
-# pixels = neopixel.NeoPixel(board.D18, 16)
-pixels = [0 for _ in range(16)]
+pixels = neopixel.NeoPixel(board.D18, 16)
+# pixels = [0 for _ in range(16)]
 
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
