@@ -13,15 +13,15 @@ The LEDs lets the person know that they're being recorded
   - Ultrasonic sensor (HC SR04)
 
 ## Files
-- sensor.py
+- `sensor.py`
   - Main file of the project. Controls the hardware.
-- distanz_messung.py
+- `distanz_messung.py`
   - Measures the distance to object using the ultrasonic sensors.
-- camera.py
+- `camera.py`
   - Captures photos 
-- recorder.py
+- `recorder.py`
   - Captures Videos
-- npc.py
+- `npc.py`
   - Neo Pixel Controller. Regulates the LED stripes.
-- email.py
+- `email.py`
   - File to send emails
