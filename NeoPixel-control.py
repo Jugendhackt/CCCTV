@@ -7,25 +7,25 @@ pixels = neopixel.NeoPixel(board.D18, 16)
 # pixels = [0 for _ in range(16)]
 
 BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-ORANGE = (255, 127, 0)
+RED = (127, 0, 0)
+ORANGE = (127, 63, 0)
 RAINBOW = [
-    (255, 127, 0),
-    (127, 255, 0),
-    (37, 63, 180),
-    (164, 63, 116),
+    (127, 63, 0),
+    (63, 127, 0),
+    (18, 31, 90),
+    (82, 31, 58),
+    (63, 63, 0),
+    (100, 31, 52),
+    (127, 31, 0),
+    (127, 95, 0),
+    (0, 63, 63),
+    (37, 0, 116),
+    (127, 0, 0),
+    (127, 63, 0),
     (127, 127, 0),
-    (201, 63, 105),
-    (255, 63, 0),
-    (255, 191, 0),
-    (0, 127, 127),
-    (74, 0, 233),
-    (255, 0, 0),
-    (255, 127, 0),
-    (255, 255, 0),
-    (0, 255, 0),
-    (0, 0, 255),
-    (202, 64, 106),
+    (0, 127, 0),
+    (0, 0, 127),
+    (101, 32, 53),
 ]
 
 
@@ -40,23 +40,6 @@ class LED:
             self.colors = [RED, ORANGE]
         else:
             self.colors = self.rainbow
-        # print("Colors", self.colors)
-
-    # def start(self):
-    #     for ind in range(len(pixels)):
-    #         if ind % 2 == 1:
-    #             pixels[ind] = self.colors[0]
-    #         else:
-    #             pixels[ind] = BLACK
-    #     pixels.show()
-    #     time.sleep(1)
-    #     for ind in range(len(pixels)):
-    #         if ind % 2 == 0:
-    #             pixels[ind] = self.colors[1]
-    #         else:
-    #             pixels[ind] = BLACK
-    #     pixels.show()
-    #     time.sleep(1)
 
     def start(self):
         if self.count >= len(self.colors):
