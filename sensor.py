@@ -71,13 +71,12 @@ if __name__ == '__main__':
                 Led.set_state(1)
                 
                 if time.time() - LastTimeElapsed >= 5:
-                    recorder.record(ImageCount)
+                    os.system(f"python recorder.py {ImageCount}")
                     if ImageCount > 5:
-                        os.remove('/tmp/picture1.jpg')
                         ImageCount = 0
                         
-                    print(f"Recording {ImageCount} saved")
                     ImageCount+=1
+                    print(f"Recording {ImageCount} saved")
                     LastTimeElapsed = time.time()
             else:
                 Led.set_state(0)
