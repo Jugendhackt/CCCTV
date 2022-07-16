@@ -16,11 +16,11 @@ VIOLET = (238, 130, 238)
 class LED:
     def __init__(self):
         self.count = 0
-        self.colors = [(20, 100, 20), (100, 50, 20)]
+        self.colors = [RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, RED, VIOLET, BLUE, GREEN, YELLOW, ORANGE, RED, ORANGE, YELLOW, GREEN]
 
     def change_state(self, recording):
         if recording == 1:
-            self.colors = [RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET]
+            self.colors = [RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET]
         else:
             self.colors = [RED, ORANGE]
 
@@ -44,10 +44,8 @@ class LED:
         if self.count >= len(self.colors):
             self.count = 0
         for ind in range(len(pixels)):
-            if ind % len(self.colors) == 0:
-                pixels[ind] = deque(self.colors[ind % len(self.colors)]).rotate(
-                    self.count
-                )
+            print(ind)
+            pixels[ind] = self.colors[(ind+self.count)%16]
         self.count += 1
         time.sleep(1)
 
