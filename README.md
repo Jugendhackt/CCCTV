@@ -16,7 +16,7 @@ The LEDs lets the person know that they're being recorded
 - sensor.py
   - Main file of the project. Controls the hardware.
 - distanz_messung.py
-  - Meeasures the distance to object using the ultrasonic sensors.
+  - Measures the distance to object using the ultrasonic sensors.
 - camera.py
   - Captures photos 
 - recorder.py
