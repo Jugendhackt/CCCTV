@@ -6,6 +6,7 @@ import os
 import time
 import recorder
 import npc
+from subprocess import Popen
 #GPIO Modus (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
  
@@ -71,7 +72,8 @@ if __name__ == '__main__':
                 Led.set_state(1)
                 
                 if time.time() - LastTimeElapsed >= 5:
-                    os.system(f"python recorder.py {ImageCount}")
+                    p = Popen(['watch', f"python recorder.py {ImageCount}"])
+                    p.terminate()
                     if ImageCount > 5:
                         ImageCount = 0
                         
