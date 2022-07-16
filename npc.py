@@ -37,11 +37,14 @@ class LED:
         self.count = 0
         self.rainbow = rainbow
         self.colors = [RED, ORANGE] * 8
+        self.recording = 0
 
-    def change_state(self, recording):
+    def set_state(self, recording):
         """Change LED colors"""
+        self.recording = recording
+    
         if recording == 1:
-            self.colors = [RED, ORANGE]
+            self.colors = [RED, ORANGE] * 8
         else:
             self.colors = self.rainbow
 
@@ -52,7 +55,10 @@ class LED:
         for ind in range(len(pixels)):
             pixels[ind] = self.colors[(ind + self.count) % len(self.colors)]
         self.count += 1
-        time.sleep(1)
+        if self.recording:
+            time.sleep(0.025)
+        else:
+            time.sleep(0.2)
 
 
 if __name__ == "__main__":
@@ -61,8 +67,8 @@ if __name__ == "__main__":
     while True:
         led.start()
         if (count / 15) % 1 <= 0.5:
-            led.change_state(0)
+            led.set_state(0)
         else:
-            led.change_state(1)
+            led.set_state(1)
 
         count += 1
