@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import board
 import neopixel
 import time
- import os
+
 #GPIO Modus (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
  
