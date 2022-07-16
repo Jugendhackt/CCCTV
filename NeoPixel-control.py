@@ -1,28 +1,46 @@
-import board
-import neopixel
+# import board
+# import neopixel
 import time
 from collections import deque
 
-pixels = neopixel.NeoPixel(board.D18, 16)
+# pixels = neopixel.NeoPixel(board.D18, 16)
+pixels = [0 for _ in range(16)]
+
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
-ORANGE = (255, 165, 0)
-YELLOW = (255, 255, 0)
-GREEN = (0, 128, 0)
-BLUE = (0, 0, 255)
-VIOLET = (238, 130, 238)
+ORANGE = (255, 127, 0)
+RAINBOW = [
+    (255, 127, 0),
+    (127, 255, 0),
+    (37, 63, 180),
+    (164, 63, 116),
+    (127, 127, 0),
+    (201, 63, 105),
+    (255, 63, 0),
+    (255, 191, 0),
+    (0, 127, 127),
+    (74, 0, 233),
+    (255, 0, 0),
+    (255, 127, 0),
+    (255, 255, 0),
+    (0, 255, 0),
+    (0, 0, 255),
+    (202, 64, 106),
+]
 
 
 class LED:
-    def __init__(self):
+    def __init__(self, rainbow):
         self.count = 0
-        self.colors = [RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, RED, VIOLET, BLUE, GREEN, YELLOW, ORANGE, RED, ORANGE, YELLOW, GREEN]
+        self.rainbow = rainbow
+        self.colors = [RED, ORANGE] * 8
 
     def change_state(self, recording):
         if recording == 1:
-            self.colors = [RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET]
-        else:
             self.colors = [RED, ORANGE]
+        else:
+            self.colors = self.rainbow
+        # print("Colors", self.colors)
 
     # def start(self):
     #     for ind in range(len(pixels)):
@@ -44,16 +62,20 @@ class LED:
         if self.count >= len(self.colors):
             self.count = 0
         for ind in range(len(pixels)):
-            print(ind)
-            pixels[ind] = self.colors[(ind+self.count)%16]
+            pixels[ind] = self.colors[(ind + self.count) % len(self.colors)]
         self.count += 1
         time.sleep(1)
+        print(pixels)
 
 
 if __name__ == "__main__":
-    led = LED()
+    led = LED(RAINBOW)
     count = 0
     while True:
         led.start()
-        # led.change_state(count % 5)
+        if (count / 10) % 1 <= 0.5:
+            led.change_state(0)
+        else:
+            led.change_state(1)
+
         count += 1
