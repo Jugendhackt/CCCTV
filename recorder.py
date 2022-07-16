@@ -1,8 +1,9 @@
 from picamera import PiCamera
 from time import sleep
-camera = PiCamera()
+import sys
 
-def record(arg):
-    sleep(2)
-    camera.capture(f'/tmp/picture{arg}.jpg')
-    
+if __name__ == '__main__':
+    try:
+        PiCamera().capture(f'/tmp/picture{sys.argv[1]}.jpg')
+    except:
+       exit()
