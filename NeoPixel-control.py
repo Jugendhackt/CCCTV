@@ -1,19 +1,34 @@
 import board
 import neopixel
 import time
+
 pixels = neopixel.NeoPixel(board.D18, 16)
-while True:
-    for ind in range(len(pixels)):
-        if ind%2 == 1:
-            pixels[ind] = (20, 10, 20)
+BLACK = (0, 0, 0)
+
+
+class LED:
+    def __init__(self):
+        self.colors = [(20, 100, 20), (100, 50, 20)]
+
+    def change_state(self, recording):
+        if recording == 1:
+            self.colors = [(100, 20, 20), (100, 100, 20)]
         else:
-            pixels[ind] = (0, 0, 0)
-    pixels.show()
-    time.sleep(0.5)
-    for ind in range(len(pixels)):
-        if ind%2 == 0:
-            pixels[ind] = (20, 0, 20)
-        else:
-            pixels[ind] = (0, 0, 0)
-    pixels.show()
-    time.sleep(0.5)
+            self.colors = [(20, 100, 20), (100, 50, 20)]
+
+    def start(self):
+        while True:
+            for ind in range(len(pixels)):
+                if ind % 2 == 1:
+                    pixels[ind] = self.colors[0]
+                else:
+                    pixels[ind] = (0, 0, 0)
+            pixels.show()
+            time.sleep(0.5)
+            for ind in range(len(pixels)):
+                if ind % 2 == 0:
+                    pixels[ind] = self.colors[1]
+                else:
+                    pixels[ind] = (0, 0, 0)
+            pixels.show()
+            time.sleep(0.5)
