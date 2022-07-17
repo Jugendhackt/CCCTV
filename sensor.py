@@ -6,6 +6,12 @@ import os
 import time
 import npc
 import subprocess
+
+dir ="/tmp/pct"
+if not os.path.exists(dir):
+    os.mkdir(dir)
+
+
 #GPIO Modus (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
  
