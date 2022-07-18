@@ -23,5 +23,5 @@ The LEDs lets the person know that they're being recorded
   - Captures Videos
 - `npc.py`
   - Neo Pixel Controller. Regulates the LED stripes.
-- `email.py`
+- `sendung.py`
   - File to send emails
