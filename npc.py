@@ -1,10 +1,14 @@
+"""NeoPixel Controller
+Library for controlling the NeoPixel LED Stripe
+"""
+
+# Import libraries
 import board
 import neopixel
 import time
-from collections import deque
 
 pixels = neopixel.NeoPixel(board.D18, 16)
-# pixels = [0 for _ in range(16)]
+# pixels = [0 for _ in range(16)] ## Use for debugging
 
 # Color Codes
 BLACK = (0, 0, 0)
@@ -29,32 +33,48 @@ RAINBOW = [
     (101, 32, 53),
 ]
 
+# Variables
+ACTIVE = 1
+PASSIVE = 0
 
-class LED:
+
+class NeoPixel:
     """Class to control LED colors"""
 
-    def __init__(self, rainbow):
+    def __init__(self, active_color, passiv_color):
+        # set initial vals
         self.count = 0
-        self.rainbow = rainbow
-        self.colors = [RED, ORANGE] * 8
+        self.passiv = self.color = active_color
+        self.active = passiv_color
         self.recording = 0
 
     def set_state(self, recording):
-        """Change LED colors"""
+        """Set LED colors"""
         self.recording = recording
-    
-        if recording == 1:
-            self.colors = [RED, ORANGE] * 8
-        else:
-            self.colors = self.rainbow
 
-    def start(self):
-        """Change LED colors"""
-        if self.count >= len(self.colors):
+        # set colors based on if recording
+        if recording == 1:
+            self.color = self.active
+        else:
+            self.color = self.passiv
+
+    def show(self):
+        """Display LED"""
+
+        # Reset count if bigger than the number of available colors
+        if self.count >= len(self.color):
             self.count = 0
+
+        # Set each LED Pixel individually
         for ind in range(len(pixels)):
-            pixels[ind] = self.colors[(ind + self.count) % len(self.colors)]
+            pixels[ind] = self.color[(ind + self.count) % len(self.color)]
+
+        pixels.show()
+
+        # Increment count
         self.count += 1
+
+        # Blink faster if recording
         if self.recording:
             time.sleep(0.025)
         else:
@@ -62,13 +82,15 @@ class LED:
 
 
 if __name__ == "__main__":
-    led = LED(RAINBOW)
+    led = NeoPixel([RED, ORANGE] * 8, RAINBOW)
     count = 0
     while True:
-        led.start()
+        led.show()
+
+        # Switch state every 15 runs
         if (count / 15) % 1 <= 0.5:
-            led.set_state(0)
+            led.set_state(PASSIVE)
         else:
-            led.set_state(1)
+            led.set_state(ACTIVE)
 
         count += 1
